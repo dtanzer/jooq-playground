@@ -22,8 +22,6 @@ import java.util.*
 @ExtendWith(SpringExtension::class)
 @Component
 class OrderRepositoryTest {
-	private val now = LocalDateTime.of(2023, 1, 15, 8, 15, 12, 123)
-
 	@TestConfiguration
 	@PropertySource("persistence-repo-tests.properties")
 	class ContextConfig : RepositoryTestContextConfiguration() {}
@@ -57,8 +55,7 @@ class OrderRepositoryTest {
 		val created = orderRepository.create(order)
 
 		val ordersFromDb = dsl
-			.select(Order.id
-			).from(Order.table)
+			.select(Order.id).from(Order.table)
 			.fetch()
 
 		expectThat(created.id).isNotNull()

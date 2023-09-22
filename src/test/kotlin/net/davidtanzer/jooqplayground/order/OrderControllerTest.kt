@@ -22,9 +22,11 @@ class OrderControllerTest(@Autowired private val mvc: MockMvc) {
 
 	@Test
 	fun `creates new order`() {
+		// arrange
 		val orderSlot = slot<Order>()
 		every { orderService.create(order = capture(orderSlot)) }.answers {  }
 
+		// act
 		mvc.perform(
 			post("/orders")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -41,6 +43,7 @@ class OrderControllerTest(@Autowired private val mvc: MockMvc) {
 					""".trimIndent())
 		)
 
+		// assert
 		verify { orderService.create(any()) }
 		expectThat(orderSlot.captured) {
 			get { billingAddress?.name }.isEqualTo("Max Mustermann")
