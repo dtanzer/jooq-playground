@@ -1,0 +1,33 @@
+GET {{host}}/products
+Content-Type: application/json
+
+###
+POST {{host}}/products
+Content-Type: application/json
+
+{
+"name": "The Product",
+"description": "Product Description",
+"price": { "value": 1234, "currency": "EUR"}
+}
+
+###
+POST  {{host}}/orders
+Content-Type: application/json
+
+{
+  "billingAddress": { "name": "Max Mustermann", "line1": "Musterstr. 6a", "postalCode": "1234", "city": "Linz", "country": "AT" },
+  "shippingAddress": { "name": "Max Mustermann", "line1": "Musterstr. 6a", "postalCode": "1234", "city": "Linz", "country": "AT" },
+  "products": [
+	{
+	  "product": {
+        "id": "d917e693-0ecb-404e-98d2-35db9e8f5bf3"
+      },
+      "quantity": 5
+	}
+  ]
+}
+
+###
+GET {{host}}/orders
+Content-Type: application/json
